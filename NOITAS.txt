@@ -242,19 +242,15 @@ encapsulation dot1q 105 native
 
 -------------DHCP-------------
 
-ip dhcp excluded-address 10.10.10.254
-ip dhcp pool vlan10
-network 10.10.10.0 255.255.255.0
-default-router 10.10.10.254
-ip dhcp excluded-address 10.10.15.126
-ip dhcp pool vlan20
-network 10.10.15.0 255.255.255.128
-default-router 10.10.15.126
-ip dhcp excluded-address 10.10.15.254
-ip dhcp pool vlan30
-network 10.10.15.128 255.255.255.128
-default-router 10.10.15.254
-ip dhcp excluded-address 10.10.16.14
-ip dhcp pool vlan55
-network 10.10.16.0 255.255.255.240
-default-router 10.10.16.14
+ip dhcp excluded-address 172.15.0.254
+ip dhcp pool vlan35
+network 172.15.0.0 255.255.255.0
+default-router 172.15.0.254
+ip dhcp excluded-address 172.15.10.127
+ip dhcp pool vlan40
+network 172.15.10.0 255.255.255.128
+default-router 172.15.10.127
+ip dhcp excluded-address 172.15.11.239
+ip dhcp pool vlan50
+network 127.15.11.0 255.255.255.240
+default-router 172.15.11.239
