@@ -129,6 +129,8 @@ ip dhcp pool vlan55
 network 10.10.16.0 255.255.255.240
 default-router 10.10.16.14
 
+
+///////////////////////////////////Familia 2/////////////////////////////////
 -------------Serial-------------
 ena
 conf t
@@ -180,7 +182,7 @@ ena
 conf t
 interface range f0/1-2
 switchport mode trunk
-switchport trunk native vlan 100
+switchport trunk native vlan 105
 ex
 
 -------------PONER IP A VLANS-------------
@@ -223,6 +225,8 @@ ex
 
 -------------INTER VLAN ROUTING-------------
 
+ena
+conf t
 Int fa0/0.35
 encapsulation dot1q 35
 ip add 172.15.0.254 255.255.255.0
