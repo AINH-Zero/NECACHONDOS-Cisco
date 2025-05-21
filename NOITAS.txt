@@ -18,15 +18,22 @@ vlan 55
 name TI
 ex
 do show vlan
+interface range fa0/3-10
+switchport mode access
+switchport access vlan 10
+exit
 interface range fa0/11-15
 switchport mode access
 switchport access vlan 20
+exit
 interface range fa0/16-20
 switchport mode access
 switchport access vlan 30
+exit
 interface range fa0/21-24
 switchport mode access
 switchport access vlan 55
+exit
 
 -------------TRUNKAR RANGOS-------------
 
@@ -122,6 +129,129 @@ ip dhcp pool vlan55
 network 10.10.16.0 255.255.255.240
 default-router 10.10.16.14
 
+-------------Serial-------------
+ena
+conf t
+interface serial 0/3/0
+no sh
+clockrate 9000
+ip address 10.10.20.1 255.255.255.252
+
+ena
+conf t
+interface serial 0/3/0
+no sh
+clockrate 9000
+ip address 10.10.20.2 255.255.255.252
+
+--------------CREAR VLANS-------------
+
+ena
+conf t
+vlan 35
+name RH
+ex
+vlan 40
+name Personal
+ex
+vlan 50
+name TI
+ex
+vlan 105
+name Nativa
+ex
+do show vlan
+interface range fa0/3-15
+switchport mode access
+switchport access vlan 35
+exit
+interface range fa0/16-20
+switchport mode access
+switchport access vlan 40
+exit
+interface range fa0/21-24
+switchport mode access
+switchport access vlan 50
+exit
+
+-------------TRUNKAR RANGOS-------------
+
+ena
+conf t
+interface range f0/1-2
+switchport mode trunk
+switchport trunk native vlan 100
+ex
+
+-------------PONER IP A VLANS-------------
+
+ena
+conf t
+interface vlan 35
+ip address 172.15.0.1 255.255.255.0
+ex
+interface vlan 40
+ip address 172.15.10.1 255.255.255.128
+ex
+interface vlan 50
+ip address 172.15.11.1 255.255.255.240
+ex
+
+ena
+conf t
+interface vlan 35
+ip address 172.15.0.2 255.255.255.0
+ex
+interface vlan 40
+ip address 172.15.10.2 255.255.255.128
+ex
+interface vlan 50
+ip address 172.15.11.2 255.255.255.240
+ex
+
+ena
+conf t
+interface vlan 35
+ip address 172.15.0.3 255.255.255.0
+ex
+interface vlan 40
+ip address 172.15.10.3 255.255.255.128
+ex
+interface vlan 50
+ip address 172.15.11.3 255.255.255.240
+ex
+
+-------------INTER VLAN ROUTING-------------
+
+Int fa0/0.10
+encapsulation dot1q 10
+ip add 10.10.10.254 255.255.255.0
+Int fa0/0.20
+encapsulation dot1q 20
+ip add 10.10.15.126 255.255.255.128
+Int fa0/0.30
+encapsulation dot1q 30
+ip add 10.10.15.254 255.255.255.128
+Int fa0/0.55
+encapsulation dot1q 55
+ip add 10.10.16.14 255.255.255.240
 
 
+-------------DHCP-------------
 
+ip dhcp excluded-address 10.10.10.254
+ip dhcp pool vlan10
+network 10.10.10.0 255.255.255.0
+default-router 10.10.10.254
+ip dhcp excluded-address 10.10.15.126
+ip dhcp pool vlan20
+network 10.10.15.0 255.255.255.128
+default-router 10.10.15.126
+ip dhcp excluded-address 10.10.15.254
+ip dhcp pool vlan30
+network 10.10.15.128 255.255.255.128
+default-router 10.10.15.254
+ip dhcp excluded-address 10.10.16.14
+ip dhcp pool vlan55
+network 10.10.16.0 255.255.255.240
+default-router 10.10.16.14
