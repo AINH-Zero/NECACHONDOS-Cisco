@@ -227,6 +227,9 @@ ex
 
 ena
 conf t
+int fa0/0
+no sh
+ex
 Int fa0/0.35
 encapsulation dot1q 35
 ip add 172.15.0.254 255.255.255.0
