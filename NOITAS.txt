@@ -223,18 +223,17 @@ ex
 
 -------------INTER VLAN ROUTING-------------
 
-Int fa0/0.10
-encapsulation dot1q 10
-ip add 10.10.10.254 255.255.255.0
-Int fa0/0.20
-encapsulation dot1q 20
-ip add 10.10.15.126 255.255.255.128
-Int fa0/0.30
-encapsulation dot1q 30
-ip add 10.10.15.254 255.255.255.128
-Int fa0/0.55
-encapsulation dot1q 55
-ip add 10.10.16.14 255.255.255.240
+Int fa0/0.35
+encapsulation dot1q 35
+ip add 172.15.0.254 255.255.255.0
+Int fa0/0.40
+encapsulation dot1q 40
+ip add 172.15.10.127 255.255.255.128
+Int fa0/0.50
+encapsulation dot1q 50
+ip add 172.15.11.239 255.255.255.240
+interface fa0/0.105
+encapsulation dot1q 105 native
 
 
 -------------DHCP-------------
