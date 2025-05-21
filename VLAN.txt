@@ -1,0 +1,75 @@
+ena
+conf t
+vlan 10
+name Alumnos
+ex
+vlan 20
+name Admin
+ex
+vlan 30
+name Docentes
+ex
+vlan 100
+name Nativa
+ex
+vlan 55
+name TI
+ex
+do show vlan
+
+ena
+conf t
+interface range f0/1-2
+switchport mode trunk
+
+ena
+conf t
+interface range f0/1-2
+switchport trunk native vlan 100
+
+SVI
+
+ena
+conf t
+interface vlan 10
+ip address 10.10.10.13 255.255.255.0
+ex
+interface vlan 20
+ip address 10.10.15.13 255.255.255.128
+ex
+interface vlan 30
+ip address 10.10.15.142 255.255.255.128
+ex
+interface vlan 55
+ip address 10.10.16.13 255.255.255.240
+ex
+
+ena
+conf t
+interface vlan 10
+ip address 10.10.10.14 255.255.255.0
+ex
+interface vlan 20
+ip address 10.10.15.14 255.255.255.128
+ex
+interface vlan 30
+ip address 10.10.15.143 255.255.255.128
+ex
+interface vlan 55
+ip address 10.10.16.14 255.255.255.240
+ex
+
+ena
+conf t
+interface vlan 10
+ip address 10.10.10.12 255.255.255.0
+ex
+interface vlan 20
+ip address 10.10.15.12 255.255.255.128
+ex
+interface vlan 30
+ip address 10.10.15.141 255.255.255.128
+ex
+interface vlan 55
+ip address 10.10.16.12 255.255.255.240
+ex
