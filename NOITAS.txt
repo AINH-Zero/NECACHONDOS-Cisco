@@ -128,7 +128,22 @@ ip dhcp excluded-address 10.10.16.14
 ip dhcp pool vlan55
 network 10.10.16.0 255.255.255.240
 default-router 10.10.16.14
+--------------Reparacion------------------
+interface vlan 20
+ip address 10.10.15.13 255.255.255.128
+ex
 
+interface vlan 20
+ip address 10.10.15.14 255.255.255.128
+ex
+
+interface vlan 20
+ip address 10.10.15.12 255.255.255.128
+ex
+
+ip dhcp excluded-address 10.10.15.13
+ip dhcp excluded-address 10.10.15.14
+ip dhcp excluded-address 10.10.15.15
 
 ///////////////////////////////////Familia 2/////////////////////////////////
 -------------Serial-------------
@@ -258,7 +273,7 @@ ip dhcp pool vlan50
 network 172.15.11.0 255.255.255.240
 default-router 172.15.11.14
 
------------Reparacion sw-------------
+-----------Reparacion-------------
 no interface vlan 35
 no interface vlan 40
 no interface vlan 50
@@ -274,3 +289,15 @@ interface range fa0/21-24
 switchport mode access
 switchport access vlan 50
 exit
+interface vlan 50
+ip address 172.15.11.1 255.255.255.240
+ex
+interface vlan 50
+ip address 172.15.11.2 255.255.255.240
+ex
+interface vlan 50
+ip address 172.15.11.3 255.255.255.240
+ex
+ip dhcp excluded-address 172.15.11.1
+ip dhcp excluded-address 172.15.11.2
+ip dhcp excluded-address 172.15.11.3
