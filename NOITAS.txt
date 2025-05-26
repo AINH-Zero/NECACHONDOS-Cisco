@@ -255,5 +255,22 @@ network 172.15.10.0 255.255.255.128
 default-router 172.15.10.126
 ip dhcp excluded-address 172.15.11.14
 ip dhcp pool vlan50
-network 127.15.11.0 255.255.255.240
+network 172.15.11.0 255.255.255.240
 default-router 172.15.11.14
+
+-----------Reparacion sw-------------
+no interface vlan 35
+no interface vlan 40
+no interface vlan 50
+interface range fa0/3-15
+switchport mode access
+switchport access vlan 35
+exit
+interface range fa0/16-20
+switchport mode access
+switchport access vlan 40
+exit
+interface range fa0/21-24
+switchport mode access
+switchport access vlan 50
+exit
