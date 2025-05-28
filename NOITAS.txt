@@ -301,3 +301,22 @@ ex
 ip dhcp excluded-address 172.15.11.1
 ip dhcp excluded-address 172.15.11.2
 ip dhcp excluded-address 172.15.11.3
+
+/////////////Seriales///////////////
+ena
+conf t
+interface serial 0/3/0
+clock rate 64000
+ip address 192.168.1.1 255.255.255.252
+no sh
+ex
+
+ena
+conf t
+interface serial 0/3/0
+clock rate 64000
+ip address 192.168.1.2 255.255.255.252
+no sh
+ex
+
+
