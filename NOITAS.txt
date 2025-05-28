@@ -319,4 +319,26 @@ ip address 192.168.1.2 255.255.255.252
 no sh
 ex
 
+//////////////OSPF/////////////////
+ena
+conf t
+router ospf 1
+network 172.15.0.0 0.0.0.255 area 0
+network 172.15.10.0 0.0.0.127 area 0
+network 172.15.11.0 0.0.0.15 area 0
+network 192.168.1.0 0.0.0.3 area 0
+ex
+
+ena
+conf t
+router ospf 1
+network 10.10.10.0 0.0.0.255 area 0
+network 10.10.15.0 0.0.0.127 area 0
+network 10.10.15.128 0.0.0.127 area 0
+network 10.10.16.0 0.0.0.15 area 0
+network 192.168.1.0 0.0.0.3 area 0
+ex
+
+
+
 
