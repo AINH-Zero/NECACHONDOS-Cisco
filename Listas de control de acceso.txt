@@ -33,3 +33,14 @@ network 172.15.1.0 0.0.0.255 area 0
 network 10.10.10.0 0.0.0.127 area 0
 network 5.5.5.0 0.0.0.3 area 0
 ex
+
+////////////ACL////////////
+ena
+conf t
+access-list 1 deny 192.168.1.0 0.0.0.255
+access-list 1 permit any
+interface fa0/0
+ip access-group 1 out
+ex
+
+
