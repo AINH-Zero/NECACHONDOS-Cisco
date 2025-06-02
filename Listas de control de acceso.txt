@@ -35,6 +35,7 @@ network 5.5.5.0 0.0.0.3 area 0
 ex
 
 ////////////ACL////////////
+----------Router 3------------
 ena
 conf t
 access-list 1 deny 192.168.1.0 0.0.0.255
@@ -42,5 +43,12 @@ access-list 1 permit any
 interface fa0/0
 ip access-group 1 out
 ex
-
+----------Router 0-------------
+ena
+conf t
+access-list 1 deny host 10.10.10.1
+access-list 1 permit any
+interface fa0/1
+ip access-group 1 out
+ex
 
