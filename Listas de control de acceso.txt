@@ -51,4 +51,12 @@ access-list 1 permit any
 interface fa0/1
 ip access-group 1 out
 ex
+----------Router 3------------
+ena
+conf t
+access-list 1 permit host 10.10.10.2
+access-list 1 deny any
+interface fa0/0
+ip access-group 1 out
+ex
 
