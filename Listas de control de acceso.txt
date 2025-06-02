@@ -52,6 +52,7 @@ interface fa0/1
 ip access-group 1 out
 ex
 ----------Router 3------------
+********Borrar access-list 1 antes de poner la nueva configuracion*********
 ena
 conf t
 access-list 1 permit host 10.10.10.2
