@@ -61,3 +61,15 @@ interface fa0/0
 ip access-group 1 out
 ex
 
+/////////////Escenario 2//////////////
+----------Router 0-------------
+access-list 100 deny IP host 192.168.1.1 host 172.15.1.1
+access-list 100 permit IP any any
+interface f0/1
+ip access-group 100 in
+----------Router 3------------
+access-list 100 permit IP host 10.10.10.2 host 172.15.1.1
+access-list 100 deny IP 10.10.10.0 0.0.0.127 172.15.1.0 0.0.0.255
+access-list 100 permit IP any any
+interface f0/1
+ip access-group 100 in
