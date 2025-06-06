@@ -73,3 +73,34 @@ access-list 100 deny IP 10.10.10.0 0.0.0.127 172.15.1.0 0.0.0.255
 access-list 100 permit IP any any
 interface f0/1
 ip access-group 100 in
+
+-----------R1---------------
+access-list 102 permit TCP 192.168.1.0 0.0.0.255 host 192.168.1.254 eq 23
+access-list 102 deny TCP any any eq 23
+access-list 102 permit IP any any eq 23
+interface f0/1
+ip access-group 102 in
+
+---------R2--------------
+access-list 102 Permit TCP 10.10.10.0 0.0.0.127 host 10.10.10.126 eq 23
+access-list 102 deny TCP any any eq 23
+access-list 102 permit IP any any 
+interface fa0/1
+ip access-group 102 in
+exit
+
+access-list 103 Permit TCP 172.15.1.0 0.0.0.255 host 172.15.1.254 eq 23
+access-list 103 deny TCP any any eq 23
+access-list 103 permit IP any any 
+interface fa0/0
+ip access-group 103 in
+exit
+
+
+
+/////////////Grande equisde//////////////
+--------------Router 0---------------
+access-list 110 deny TCP 172.15.1.0 0.0.0.255 host 10.10.10.125 eq 80
+access-list 110 permit IP any any 
+interface fa0/0
+ip access-group 110 in
