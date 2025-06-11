@@ -106,7 +106,14 @@ interface fa0/0
 ip access-group 110 in
 
 ///////////Correo//////////////
+-----------block receive guada-----------
 access-list 127 deny TCP host 10.10.15.129 host 172.15.0.253 eq 110
 access-list 127 permit IP any any 
 interface fa0/0.30
 ip access-group 127 in
+
+-----block send naoki-----------
+access-list 128 deny TCP host 172.15.11.5 host 172.15.0.253 eq 25
+access-list 128 permit IP any any 
+interface fa0/0.50
+ip access-group 128 in
