@@ -1,0 +1,26 @@
+-----------Router 0-------------
+interface fa0/0
+no sh
+ip address 192.168.1.254 255.255.255.0
+ex
+interface serial 0/3/0
+no sh
+ip address 209.165.200.1 255.255.255.252
+ex
+router ospf 1
+network 192.168.1.0 0.0.0.255 area 0
+network 209.165.200.0 0.0.0.3 area 0
+exit
+-----------Router 1-------------
+interface fa0/0
+no sh
+ip address 209.165.201.254 255.255.255.0
+ex
+interface serial 0/3/0
+no sh
+ip address 209.165.200.2 255.255.255.252
+ex
+router ospf 1
+network 209.165.201.0 0.0.0.255 area 0
+network 209.165.200.0 0.0.0.3 area 0
+exit

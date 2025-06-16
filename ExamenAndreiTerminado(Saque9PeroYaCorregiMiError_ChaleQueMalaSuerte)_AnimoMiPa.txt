@@ -1,0 +1,29 @@
+access-list 1 deny host 10.15.0.2
+access-list 1 permit any 
+interface fa0/0
+ip access-group 1 out 
+
+access-list 101 permit tcp 10.15.24.0 0.0.1.255 host 10.15.15.254 eq 23
+access-list 101 permit tcp 10.15.24.0 0.0.1.255 host 10.15.23.254 eq 23
+access-list 101 permit tcp 10.15.24.0 0.0.1.255 host 10.15.25.254 eq 23
+access-list 101 deny tcp any any eq 23
+access-list 101 deny tcp 10.15.24.0 0.0.1.255 host 172.15.0.253 eq 80
+access-list 101 deny tcp host 10.15.0.2 host 172.15.0.253 eq 110
+access-list 101 permit ip any any
+
+interface fa0/0.70
+ip access-group 101 in
+exit
+interface fa0/0.75
+ip access-group 101 in
+exit
+interface fa0/0.80
+ip access-group 101 in
+
+access-list 101 deny tcp any any eq 23
+access-list 101 deny ip host 172.15.0.2 host 10.15.16.1
+access-list 101 permit ip any any
+
+interface fa0/0
+ip access-group 101 in
+
