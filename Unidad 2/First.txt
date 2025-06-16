@@ -1,3 +1,5 @@
+/////////////NAT 3 estatica////////////
+///////////////OSPF///////////////
 -----------Router 0-------------
 interface fa0/0
 no sh
@@ -24,3 +26,17 @@ router ospf 1
 network 209.165.201.0 0.0.0.255 area 0
 network 209.165.200.0 0.0.0.3 area 0
 exit
+//////////////////NAT////////////////////
+Router frontera entre privada y publica
+Local Interna red interna a traducir privada
+Local Externa red a cambiar publica
+
+-------------Router 1 frontera*-----------
+interface serial 0/3/0
+ip nat inside
+ex
+interface fa0/0
+ip nat outside
+ex
+ip nat inside source static 192.168.1.1 209.165.201.10 ****Para cambiar la publica no debe ya estar asignada*****
+do show ip nat translation
