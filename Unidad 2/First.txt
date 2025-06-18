@@ -40,3 +40,9 @@ ip nat outside
 ex
 ip nat inside source static 192.168.1.1 209.165.201.10 ****Para cambiar la publica no debe ya estar asignada*****
 do show ip nat translation
+/////////////NAT 2 dinamica///////////////
+access-list 1 permit 192.168.1.0 0.0.0.255
+access-list 1 deny any
+-------------pool-----------
+ip nat pool NAT1 209.165.201.10 209.165.201.25 netmask 255.255.255.0
+IP NAT INSIDE SOURCE LIST 1 POOL NAT1
