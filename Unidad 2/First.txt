@@ -31,18 +31,41 @@ Router frontera entre privada y publica
 Local Interna red interna a traducir privada
 Local Externa red a cambiar publica
 
--------------Router 1 frontera*-----------
+-------------Router 1 frontera*-----------****Para cambiar la publica no debe ya estar asignada*****
 interface serial 0/3/0
 ip nat inside
 ex
 interface fa0/0
 ip nat outside
 ex
-ip nat inside source static 192.168.1.1 209.165.201.10 ****Para cambiar la publica no debe ya estar asignada*****
+ip nat inside source static 192.168.1.1 209.165.201.10 
 do show ip nat translation
-/////////////NAT 2 dinamica///////////////
+
+/////////////NAT 2 Dynamic///////////////
+interface serial 0/3/0
+ip nat inside
+ex
+interface fa0/0
+ip nat outside
+ex
 access-list 1 permit 192.168.1.0 0.0.0.255
 access-list 1 deny any
 -------------pool-----------
 ip nat pool NAT1 209.165.201.10 209.165.201.25 netmask 255.255.255.0
 IP NAT INSIDE SOURCE LIST 1 POOL NAT1
+
+/////////////NAT PAT con muchos///////////////
+interface serial 0/3/0
+ip nat inside
+ex
+interface fa0/0
+ip nat outside
+ex
+access-list 1 permit 192.168.1.0 0.0.0.255
+access-list 1 deny any
+-------------PAT-----------
+ip nat pool NAT1 209.165.201.10 209.165.201.25 netmask 255.255.255.0
+IP NAT INSIDE SOURCE LIST 1 POOL NAT1
+
+
+
