@@ -54,7 +54,7 @@ access-list 1 deny any
 ip nat pool NAT1 209.165.201.10 209.165.201.25 netmask 255.255.255.0
 IP NAT INSIDE SOURCE LIST 1 POOL NAT1
 
-/////////////NAT PAT///////////////
+/////////////NAT PAT 1-1///////////////
 interface serial 0/3/0
 ip nat inside
 ex
@@ -65,6 +65,19 @@ access-list 1 permit 192.168.1.0 0.0.0.255
 access-list 1 deny any
 -------------PAT-----------
 IP NAT INSIDE SOURCE LIST 1 INTERFACE FA0/0 OVERLOAD
+
+/////////////NAT 2 PAT con Muchos//////////////
+interface serial 0/3/0
+ip nat inside
+ex
+interface fa0/0
+ip nat outside
+ex
+access-list 1 permit 192.168.1.0 0.0.0.255
+access-list 1 deny any
+-------------pool-----------
+ip nat pool NAT1 209.165.201.10 209.165.201.25 netmask 255.255.255.0
+IP NAT INSIDE SOURCE LIST 1 POOL NAT1 OVERLOAD
 
 
 
