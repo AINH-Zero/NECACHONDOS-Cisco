@@ -73,3 +73,32 @@ network 11.11.11.4 0.0.0.3 area 0
 network 192.168.10.0 0.0.0.127 area 0
 exit
 
+////////////Router4
+-----------OSPF
+interface serial0/3/0
+no sh
+ip address 11.11.11.10 255.255.255.252
+ex
+interface fa0/0
+no sh
+ip address 10.10.10.191 255.255.255.192
+ex
+router ospf 1
+network 11.11.11.8 0.0.0.3 area 0
+network 10.10.10.0 0.0.0.63 area 0
+exit
+
+////////////Router5
+-----------OSPF
+interface serial0/3/0
+no sh
+ip address 11.11.11.14 255.255.255.252
+ex
+interface fa0/0
+no sh
+ip address 192.168.10.254 255.255.255.128
+ex
+router ospf 1
+network 11.11.11.12 0.0.0.3 area 0
+network 192.168.10.128 0.0.0.127 area 0
+exit
