@@ -28,6 +28,43 @@ network 11.11.11.8 0.0.0.3 area 0
 network 11.11.11.12 0.0.0.3 area 0
 exit
 
+-------------NAT
+interface serial0/0/0
+ip nat outside
+ex
+interface serial0/0/1
+ip nat inside
+ex
+interface serial0/1/0
+ip nat inside
+ex
+interface serial0/1/1
+ip nat inside
+ex
+interface serial0/2/0
+ip nat inside
+ex
+**************Estatico
+ip nat inside source static 192.168.1.1 209.165.201.1 
+ip nat inside source static 192.168.1.2 209.165.201.2 
+ip nat inside source static 192.168.1.3 209.165.201.3 
+ip nat inside source static 192.168.1.4 209.165.201.4 
+ip nat inside source static 192.168.1.5 209.165.201.5
+**************Dinamico
+access-list 1 permit 192.168.10.0 0.0.0.127
+access-list 1 deny any
+ip nat pool NAT1 209.165.201.1 209.165.201.20 netmask 255.255.255.128
+IP NAT INSIDE SOURCE LIST 1 POOL NAT1
+**************PAT
+access-list 2 permit 10.10.10.0 0.0.0.63
+access-list 2 deny any
+IP NAT INSIDE SOURCE LIST 2 INTERFACE serial0/1/1 OVERLOAD
+**************PAT con muchos
+access-list 3 permit 192.168.10.128 0.0.0.127
+access-list 3 deny any
+ip nat pool NAT2 209.165.201.129 209.165.201.248 netmask 255.255.255.128
+IP NAT INSIDE SOURCE LIST 3 POOL NAT2 OVERLOAD
+
 ////////////Router1
 -----------OSPF
 interface serial0/3/0
