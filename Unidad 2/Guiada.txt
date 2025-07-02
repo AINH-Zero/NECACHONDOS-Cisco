@@ -1,0 +1,19 @@
+access-list standard R2NAT permit 192.168.10.0 0.0.0.255
+access-list standard R2NAT permit 192.168.20.0 0.0.0.255
+access-list standard R2NAT permit 192.168.30.0 0.0.0.255
+access-list standard R2NAT deny any
+ip nat pool R2POOL 209.165.202.129 209.165.202.130 netmask 255.255.255.252
+IP NAT INSIDE SOURCE LIST R2NAT POOL R2POOL OVERLOAD
+ip nat inside source static 192.168.20.254 209.165.202.130
+interface fa0/1
+ip nat inside
+ex
+interface serial0/0/0
+ip nat inside
+ex
+interface serial0/0/1
+ip nat inside
+ex
+interface serial0/1/0
+ip nat outside
+ex
