@@ -1,0 +1,80 @@
+### **Parte 1: Tecnologías WAN de Consumo**
+
+En esta parte, nos enfocamos en el recuadro amarillo de la derecha, que representa las redes domésticas.
+
+#### **a. ¿Cuáles son las tecnologías WAN en uso?**
+
+* **Respuesta Correcta:** Las redes domésticas utilizan tecnologías WAN por cable y DSL.
+* **Procedimiento:**
+    1.  Observa el cuadro amarillo titulado "Consumer WAN Technologies".
+    2.  Dentro de este cuadro, verás dos redes separadas. Una está claramente etiquetada como "**Home Cable Network**" y la otra como "**Home DSL Network**".
+    3.  Estas etiquetas nos indican directamente las dos tecnologías que se están utilizando para conectar a los usuarios domésticos con el proveedor de servicios de Internet (ISP): **Cable** y **DSL (Digital Subscriber Line)**.
+
+#### **b. ¿Qué medios y dispositivos se conectan al ISP?**
+
+* **Respuesta Correcta:** La red de cable usa un medio coaxial que se conecta a un divisor. La red DSL usa un cable telefónico que se conecta al módem DSL.
+* **Procedimiento:**
+    1.  **Para la red de cable:** Sigue la línea azul gruesa que sale de la nube del ISP hacia la "Home Cable Network". En Packet Tracer, este tipo de cable representa un **cable coaxial**. La línea se conecta primero a un dispositivo llamado "**Coaxial Splitter**" (Divisor Coaxial).
+    2.  **Para la red DSL:** Sigue la línea azul delgada que sale de la nube del ISP hacia la "Home DSL Network". Este tipo de línea representa un **cable telefónico**. Esta línea se conecta directamente al dispositivo etiquetado como "**DSL Modem**".
+
+#### **c. Preguntas sobre el Módem DSL y el Divisor de Cable**
+
+* **Respuesta Correcta:** El módem DSL tiene un puerto para la línea telefónica y otro para la red local (Ethernet). Su propósito es convertir la señal DSL a Ethernet. El divisor en la red de cable es necesario para separar la señal de datos (para el módem) de la señal de video (para la TV).
+* **Procedimiento:**
+    1.  **Módem DSL:** Si te fijas en el "DSL Modem", verás que le llega un cable (la línea telefónica) y le sale otro (un cable de red Ethernet, de color negro y punteado) que va hacia el router inalámbrico. Su función principal como **MO**dem (Modulador-**DEM**odulador) es transformar la señal digital que viaja por la línea telefónica en una señal Ethernet que los dispositivos de la casa pueden entender.
+    2.  **Divisor de Cable:** Mira el "Coaxial Splitter". Le llega un solo cable coaxial desde el ISP. De él, salen dos cables: uno va hacia el "**Cable Modem**" y el otro hacia la "**TV**". Esto demuestra que la misma línea de cable coaxial transporta múltiples servicios (Internet y Televisión por cable). El divisor es un simple dispositivo que **separa estas señales** para que cada una llegue al dispositivo correcto.
+
+#### **d. Preguntas sobre el Módem por Cable**
+
+* **Respuesta Correcta:** Convierte señales de cable a Ethernet. Se conecta al puerto de Internet del router. La IP de esa interfaz la asigna el ISP mediante DHCP.
+* **Procedimiento:**
+    1.  **Función y Conexiones:** Al igual que el módem DSL, el "Cable Modem" convierte la señal de datos del cable coaxial a una señal Ethernet. Tiene una entrada coaxial y una salida Ethernet.
+    2.  **Conexión al Router:** El cable Ethernet que sale del módem por cable se conecta al "**Wireless Router**". Los routers domésticos tienen un puerto especial, usualmente de un color diferente y etiquetado como "**Internet**" o "**WAN**". Este es el puerto que recibe la conexión del exterior.
+    3.  **Origen de la IP:** La red del ISP (ISP/Telco) es la que "presta" una dirección IP pública al router doméstico para que pueda navegar en internet. Este proceso de asignación es casi siempre automático y se realiza mediante un protocolo llamado **DHCP** (Protocolo de Configuración Dinámica de Host).
+
+#### **e. Preguntas sobre el Smartphone**
+
+* **Respuesta Correcta:** La IP es asignada por la red celular (telefónica). El teléfono está usando datos celulares.
+* **Procedimiento:**
+    1.  **Conexión y Servicio:** Observa que el "Smartphone" no está conectado por Wi-Fi a ninguno de los routers inalámbricos. En cambio, tiene una conexión directa con la "**Cell Tower0**" (Torre Celular). Esto indica que está utilizando la red de **datos celulares** (como 4G/5G) para su conexión a internet.
+    2.  **Origen de la IP:** Al igual que el ISP asigna una IP a los routers domésticos, el **proveedor de telefonía celular** asigna una dirección IP al smartphone cuando se conecta a su red de datos. La dirección `172.16.0.0/16` que se ve en el diagrama es la dirección de la red celular, y el teléfono obtendría una IP específica de ese rango.
+
+---
+
+### **Parte 2: Explorar la WAN Empresarial**
+
+Ahora nos enfocamos en el recuadro de la izquierda, la red de la empresa.
+
+#### **a. ¿Qué tipos diferentes de conexiones se ven?**
+
+* **Respuesta Correcta:** Ethernet sobre cobre y fibra, y también serie.
+* **Procedimiento:**
+    1.  **Dentro de la Sede (HQ):** Las conexiones de la "Business Headquarters" a las PCs y servidores son cables negros punteados, que representan **Ethernet sobre cobre**.
+    2.  **De la Sede a las Tiendas:** Las conexiones rojas desde el switch "StoreNet" hacia las tres tiendas ("Store 1", "Store 2", "Store 3") son de **fibra óptica**.
+    3.  **De la Sede al ISP:** La conexión roja con un símbolo de rayo entre el router de "Business Headquarters" y el router del ISP es una **conexión serial**, un tipo de enlace WAN muy común.
+
+#### **b. Preguntas sobre las conexiones empresariales**
+
+* **Respuesta Correcta:** Las tiendas se conectan con fibra óptica al switch "StoreNet". La fibra se usa por la distancia. La conexión de la sede al ISP es una conexión WAN serial.
+* **Procedimiento:**
+    1.  **Interfaces y Medios (Tiendas a HQ):** Como vimos, los cables rojos que unen las tiendas con la sede son de **fibra óptica**. La fibra óptica se elige principalmente porque puede transmitir datos a altas velocidades a través de **distancias mucho más largas** que el cable de cobre estándar, lo cual es necesario para conectar edificios que están geográficamente separados.
+    2.  **Servicio WAN (Sede a ISP):** Como identificamos en el punto anterior, la línea roja con el rayo entre el router de la sede y el ISP indica una **conexión WAN de tipo serial**.
+
+---
+
+### **Parte 3: Explorar la Conectividad**
+
+#### **a. ¿Pueden todos los hosts hacer ping entre sí y al servidor web?**
+
+* **Respuesta Correcta:** Todos pueden hacer ping al servidor web, pero los hosts de la red empresarial no pueden hacer ping a los de la red de consumo, y viceversa.
+* **Procedimiento (Razonamiento de Redes):**
+    1.  **Ping al Servidor Web:** El "Web Server" está en la internet pública. Tanto la red empresarial como las redes domésticas están diseñadas para tener una ruta de salida hacia internet a través del ISP. Por lo tanto, cualquier dispositivo dentro de estas redes puede llegar a un servidor público como ese.
+    2.  **Ping entre Redes de Clientes:** La red empresarial y las redes domésticas son **clientes diferentes** del mismo ISP. Por **seguridad y privacidad**, un ISP nunca permite que la red privada de un cliente (la empresa) pueda acceder directamente a la red privada de otro cliente (las casas). Los routers del ISP y los firewalls en el borde de cada red (como el router de "Business Headquarters") están configurados para bloquear este tipo de tráfico.
+
+#### **b. ¿Es esta una buena situación?**
+
+* **Respuesta Correcta:** Sí, es bueno por razones de seguridad.
+* **Procedimiento (Principio de Seguridad):**
+    * Absolutamente. Esta separación es un **principio fundamental de la seguridad de redes**. No querrías que cualquier otro cliente de tu proveedor de internet pudiera intentar conectarse a tu computadora, laptop o a los servidores de tu empresa. Este aislamiento previene accesos no autorizados y protege la información privada de cada red.
+
+Espero que este desglose te ayude a entender no solo las respuestas, sino el "porqué" detrás de cada una, bro. ¡Sigue así!
