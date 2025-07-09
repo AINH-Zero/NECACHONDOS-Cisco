@@ -76,5 +76,3 @@ Ahora nos enfocamos en el recuadro de la izquierda, la red de la empresa.
 * **Respuesta Correcta:** Sí, es bueno por razones de seguridad.
 * **Procedimiento (Principio de Seguridad):**
     * Absolutamente. Esta separación es un **principio fundamental de la seguridad de redes**. No querrías que cualquier otro cliente de tu proveedor de internet pudiera intentar conectarse a tu computadora, laptop o a los servidores de tu empresa. Este aislamiento previene accesos no autorizados y protege la información privada de cada red.
-
-Espero que este desglose te ayude a entender no solo las respuestas, sino el "porqué" detrás de cada una, bro. ¡Sigue así!
