@@ -21,34 +21,34 @@ a. Mira las dos redes domésticas.
 b. Examine las conexiones utilizadas en la topología de red seleccionando el icono Conexiones (el rayo naranja) en el menú Dispositivos PT. Pase el cursor sobre los iconos multimedia para mostrar sus nombres en el cuadro blanco situado en la parte inferior de la ventana PT.
 
 ¿Qué medios se utilizan para conectar las dos redes domésticas al ISP? ¿Qué dispositivos en las redes domésticas están conectados directamente al ISP?
-La red de cable utiliza medios coaxiales para conectar la red de cable doméstica al ISP. El medio coaxial se conecta al dispositivo divisor coaxial. El cable telefónico conecta la red DSL al ISP. El cable del teléfono se conecta al módem DSL.
+****La red de cable utiliza medios coaxiales para conectar la red de cable doméstica al ISP. El medio coaxial se conecta al dispositivo divisor coaxial. El cable telefónico conecta la red DSL al ISP. El cable del teléfono se conecta al módem DSL.
 
 c. Haga clic en el módem DSL y abra la ficha Física.
 
 ¿Qué puertos están disponibles en el dispositivo y qué está conectado a ellos?
-El módem DSL tiene dos puertos. Uno está conectado a la línea telefónica desde la compañía telefónica. El otro puerto está conectado a la LAN doméstica a través de Ethernet.
+****El módem DSL tiene dos puertos. Uno está conectado a la línea telefónica desde la compañía telefónica. El otro puerto está conectado a la LAN doméstica a través de Ethernet.
 
 ¿Cuál es el propósito del módem DSL?
-Convierte las señales de red de datos telefónicos a Ethernet para la red doméstica.
+****Convierte las señales de red de datos telefónicos a Ethernet para la red doméstica.
 
 ¿Cuál es el tipo de conexión entre la red ISP/Telco/Cable Company y la red Home Cable Network? ¿Por qué es necesario el divisor?
-La conexión a la casa se realiza con cable coaxial. El divisor es necesario porque el cable transporta tanto datos digitales como señales de video. El divisor divide los medios para que la señal de datos se pueda enviar al módem por cable y la señal de video al televisor.
+****La conexión a la casa se realiza con cable coaxial. El divisor es necesario porque el cable transporta tanto datos digitales como señales de video. El divisor divide los medios para que la señal de datos se pueda enviar al módem por cable y la señal de video al televisor.
 
 d. Mire los puertos en el módem por cable.
 
 ¿Qué hace el módem por cable? ¿Qué conexiones tiene?
-El módem por cable convierte las señales de datos por cable en señales Ethernet. Está conectado al cable coaxial desde el divisor y al cable UTP desde la interfaz Ethernet.
+****El módem por cable convierte las señales de datos por cable en señales Ethernet. Está conectado al cable coaxial desde el divisor y al cable UTP desde la interfaz Ethernet.
 
 ¿A qué puerto se conecta el cable del módem por cable en el router inalámbrico doméstico? ¿De dónde proviene la dirección IP de la interfaz?
-Se conecta a la interfaz de Internet. La dirección IP proviene de la red ISP a través de DHCP.
+****Se conecta a la interfaz de Internet. La dirección IP proviene de la red ISP a través de DHCP.
 
 e. Mira el Smartphone.
 
 ¿Cuál es su dirección IP? ¿De dónde viene la dirección IP?
-La dirección IP es 198.51.100.100. La dirección debe haber venido de la red telefónica a través de DHCP.
+****La dirección IP es 198.51.100.100. La dirección debe haber venido de la red telefónica a través de DHCP.
 
 ¿Qué servicio de datos está utilizando actualmente el teléfono móvil (datos móviles o Wi-Fi)?
-El teléfono está usando datos celulares de la red 3G/4G.
+****El teléfono está usando datos celulares de la red 3G/4G.
 
 Paso 2: Explore la WAN empresarial
 En este paso explorará la WAN empresarial. El negocio es una tienda de neumáticos al por menor. Tiene una sede local donde se producen la mayoría de las funciones empresariales, y tres tiendas que están conectadas a la WAN empresarial.
@@ -56,22 +56,22 @@ En este paso explorará la WAN empresarial. El negocio es una tienda de neumáti
 a. Mire el menú Conexiones.
 
 ¿Qué tipos diferentes de conexiones ve en uso en la red empresarial?
-Ethernet sobre cobre y fibra y también serie.
+****Ethernet sobre cobre y fibra y también serie.
 
 b. Abra la vista física del switch StoreNet.
 
 ¿Qué tipos de interfaces están presentes? Es posible que tenga que hacer zoom y desplazar la vista para verla.
-El switch tiene puertos de medios de cobre Gigabit Ethernet y tiene cuatro puertos modulares. Hay tres módulos GLC-LH-SMD de fibra óptica de factor de forma pequeño enchufable (SFP) insertados en los puertos modulares. Estos módulos permiten que el switch se conecte a redes Ethernet de fibra óptica.
+****El switch tiene puertos de medios de cobre Gigabit Ethernet y tiene cuatro puertos modulares. Hay tres módulos GLC-LH-SMD de fibra óptica de factor de forma pequeño enchufable (SFP) insertados en los puertos modulares. Estos módulos permiten que el switch se conecte a redes Ethernet de fibra óptica.
 
 ¿Qué interfaces y medios se utilizan para conectar las redes de almacén a la red de Business Headquarters? ¿Por qué se hizo esto?
-Las tiendas están conectadas al switch StoreNet con Ethernet a través de cables de fibra óptica. Esto se hizo debido a la distancia requerida para llegar a las tiendas. En realidad, otro proveedor proporcionaría este servicio de fibra óptica, pero esto se ha simplificado para los fines de esta actividad.
+****Las tiendas están conectadas al switch StoreNet con Ethernet a través de cables de fibra óptica. Esto se hizo debido a la distancia requerida para llegar a las tiendas. En realidad, otro proveedor proporcionaría este servicio de fibra óptica, pero esto se ha simplificado para los fines de esta actividad.
 
 ¿Qué tipo de servicio WAN se utiliza para conectar el router Business Headquarters al ISP?
-El router utiliza una conexión WAN serie para conectarse al ISP.
+***El router utiliza una conexión WAN serie para conectarse al ISP.
 
 Parte 2: Explorar la conectividad
 Ping dispositivos dentro de la WAN empresarial y de las redes WAN del consumidor. También ping entre las redes y entre las redes y el servidor web. ¿Pueden todos los hosts hacer ping entre sí y el servidor web?
-Los hosts de ambas redes pueden hacer ping al servidor web, pero los hosts de las redes WAN empresariales no pueden hacer ping a los hosts de las redes WAN del consumidor y viceversa.
+****Los hosts de ambas redes pueden hacer ping al servidor web, pero los hosts de las redes WAN empresariales no pueden hacer ping a los hosts de las redes WAN del consumidor y viceversa.
 
 ¿Es esta una buena situación?
-Sí, estas redes no deben ser accesibles directamente desde el exterior por razones de seguridad.
+****Sí, estas redes no deben ser accesibles directamente desde el exterior por razones de seguridad.
