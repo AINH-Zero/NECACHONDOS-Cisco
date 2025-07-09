@@ -1,0 +1,33 @@
+! Entrar a modo de configuración
+enable
+configure terminal
+
+! Configuración de DHCP
+ip dhcp excluded-address 210.5.5.254
+ip dhcp pool POOL_LAN_R5
+ network 210.5.5.0 255.255.255.0
+ default-router 210.5.5.254
+exit
+
+! Configuración de Interfaces
+interface GigabitEthernet0/0
+ ip address 210.5.5.254 255.255.255.0
+ no shutdown
+exit
+
+interface Serial0/0/0
+ ip address 11.11.11.18 255.255.255.252
+ no shutdown
+exit
+
+! Configuración de OSPF
+router ospf 1
+ log-adjacency-changes
+ network 11.11.11.16 0.0.0.3 area 0
+ network 210.5.5.0 0.0.0.255 area 0
+exit
+
+! Ruta estática (simulando salida a Internet)
+ip route 0.0.0.0 0.0.0.0 Serial0/0/0
+
+end

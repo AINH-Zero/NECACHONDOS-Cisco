@@ -1,0 +1,61 @@
+! Entrar a modo de configuración
+enable
+configure terminal
+
+! Configuración de DHCP
+ip dhcp excluded-address 172.16.1.254
+ip dhcp excluded-address 192.168.1.126
+ip dhcp pool POOL_VLAN30_DATOS
+ network 172.16.1.0 255.255.255.0
+ default-router 172.16.1.254
+exit
+ip dhcp pool POOL_VLAN35_DATOS
+ network 192.168.1.64 255.255.255.192
+ default-router 192.168.1.126
+exit
+
+! Configuración de Interfaces
+interface GigabitEthernet0/0
+ no ip address
+ no shutdown
+exit
+
+interface GigabitEthernet0/0.30
+ encapsulation dot1Q 30
+ ip address 172.16.1.254 255.255.255.0
+ no shutdown
+exit
+
+interface GigabitEthernet0/0.35
+ encapsulation dot1Q 35
+ ip address 192.168.1.126 255.255.255.192
+ no shutdown
+exit
+
+interface GigabitEthernet0/0.100
+ encapsulation dot1Q 100 native
+ no ip address
+ no shutdown
+exit
+
+interface GigabitEthernet0/0.105
+ encapsulation dot1Q 105
+ ip address 10.10.12.94 255.255.255.224
+ no shutdown
+exit
+
+interface Serial0/0/0
+ ip address 11.11.11.10 255.255.255.252
+ no shutdown
+exit
+
+! Configuración de OSPF
+router ospf 1
+ log-adjacency-changes
+ network 172.16.1.0 0.0.0.255 area 0
+ network 192.168.1.64 0.0.0.63 area 0
+ network 10.10.12.64 0.0.0.31 area 0
+ network 11.11.11.8 0.0.0.3 area 0
+exit
+
+end

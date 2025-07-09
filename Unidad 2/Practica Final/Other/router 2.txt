@@ -1,0 +1,67 @@
+ena
+configure terminal
+
+!********Cambiar al que esta conectado con el router 0******
+interface Serial0/0/0
+ ip address 11.11.11.6 255.255.255.252
+ no shutdown
+exit
+
+
+!//////////////////////////////Intervlan///////////////////////////////
+
+!***************Cambiar la gigabithEthernet a el que este conectado al switch 1  de aqui en adelante******************
+enable
+configure terminal
+
+! Configurar la interfaz física conectada al Switch1
+interface GigabitEthernet0/0
+ no ip address
+ no shutdown
+
+! Configurar la subinterfaz para VLAN 20
+interface GigabitEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 192.168.1.62 255.255.255.192
+ no shutdown
+
+! Configurar la subinterfaz para VLAN 25
+interface GigabitEthernet0/0.25
+ encapsulation dot1Q 25
+ ip address 172.16.2.126 255.255.255.128
+ no shutdown
+ 
+ ! Configurar la subinterfaz para la VLAN nativa 100
+interface GigabitEthernet0/0.100
+ encapsulation dot1Q 100 native
+ no shutdown
+
+ 
+ ! Configurar la subinterfaz para VLAN 105 (Administrativa)
+ !Familia 10.10.12.32/27
+interface GigabitEthernet0/0.105
+ encapsulation dot1Q 105 
+  ip address 10.10.12.62
+  no shutdown
+
+
+!////////////////////DHCP///////////////////
+ena
+conf t
+ip dhcp excluded-address 172.16.2.126
+ip dhcp excluded-address 192.168.1.62
+
+! Pool DHCP para VLAN 20 (Red: 192.168.1.0/26)
+ip dhcp pool POOL_VLAN20_DATOS
+ network 192.168.1.0 255.255.255.192
+ default-router 192.168.1.62
+exit
+
+! Pool DHCP para VLAN 25 (Red: 172.16.2.0/25)
+ip dhcp pool POOL_VLAN25_DATOS
+ network 172.16.2.0 255.255.255.128
+ default-router 172.16.2.126
+exit
+
+end
+ 

@@ -1,0 +1,47 @@
+! Entrar a modo de configuración
+enable
+configure terminal
+
+! Creación de VLANs
+vlan 20
+ name DATOS_VLAN20
+exit
+vlan 25
+ name DATOS_VLAN25
+exit
+vlan 100
+ name VLAN_NATIVA
+exit
+vlan 105
+ name ADMINISTRATIVA
+exit
+
+! Configuración de Puertos Troncales
+interface range FastEthernet0/1 - 3
+ switchport mode trunk
+ switchport trunk native vlan 100
+exit
+
+! Configuración de Puertos de Acceso
+interface range FastEthernet0/4 - 10
+ switchport mode access
+ switchport access vlan 20
+exit
+
+interface range FastEthernet0/11 - 23
+ switchport mode access
+ switchport access vlan 25
+exit
+
+interface FastEthernet0/24
+ switchport mode access
+ switchport access vlan 105
+exit
+
+! Configuración de Interfaz Virtual (SVI) para administración
+interface Vlan105
+ ip address 10.10.12.61 255.255.255.224
+ no shutdown
+exit
+
+end

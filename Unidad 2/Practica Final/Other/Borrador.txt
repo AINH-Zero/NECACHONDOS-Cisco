@@ -1,0 +1,61 @@
+Router 0
+interface serial0/2/0
+ip nat outside
+exit
+interface serial0/0/0
+ip nat inside
+exit
+interface serial0/0/1
+ip nat inside
+exit
+interface serial0/1/0
+ip nat inside
+exit
+interface serial0/1/1
+ip nat inside
+exit
+----------Estatica
+! Para VLAN 10 -> 10.10.10.0/24
+ip nat inside source static 10.10.10.1 209.165.1.1
+ip nat inside source static 10.10.10.2 209.165.1.2
+ip nat inside source static 10.10.10.3 209.165.1.3
+ip nat inside source static 10.10.10.4 209.165.1.4
+ip nat inside source static 10.10.10.5 209.165.1.5
+
+! Para VLAN 30 -> 172.16.1.0/24
+ip nat inside source static 172.16.1.1 209.165.3.65
+ip nat inside source static 172.16.1.2 209.165.3.66
+ip nat inside source static 172.16.1.3 209.165.3.67
+ip nat inside source static 172.16.1.4 209.165.3.68
+ip nat inside source static 172.16.1.5 209.165.3.69
+
+----------Dinamica
+! Para VLAN 15 -> 10.10.11.0/25
+ip nat pool POOL_VLAN15 209.165.2.1 209.165.2.20 netmask 255.255.255.128
+access-list 15 permit 10.10.11.0 0.0.0.127
+ip nat inside source list 15 pool POOL_VLAN15
+
+! Para VLAN 35 -> 192.168.1.64/26
+ip nat pool POOL_VLAN35 209.165.3.129 209.165.3.148 netmask 255.255.255.192
+access-list 35 permit 192.168.1.64 0.0.0.63
+ip nat inside source list 35 pool POOL_VLAN35
+
+----------PAT de muchos
+! Para VLAN 20 -> 192.168.1.0/26
+ip nat pool POOL_VLAN20 209.165.3.1 209.165.3.20 netmask 255.255.255.192
+access-list 20 permit 192.168.1.0 0.0.0.63
+ip nat inside source list 20 pool POOL_VLAN20 overload
+
+! Para VLAN 40 -> 192.168.10.0/25
+ip nat pool POOL_VLAN40 209.165.4.1 209.165.4.20 netmask 255.255.255.224
+access-list 40 permit 192.168.10.0 0.0.0.127
+ip nat inside source list 40 pool POOL_VLAN40 overload
+
+----------PAT puerto
+! Para VLAN 25 -> 172.16.2.0/25
+access-list 25 permit 172.16.2.0 0.0.0.127
+ip nat inside source list 25 interface Serial0/2/0 overload
+
+! Para VLAN 45 -> 192.168.11.128/26
+access-list 45 permit 192.168.11.128 0.0.0.63
+ip nat inside source list 45 interface Serial0/2/0 overload

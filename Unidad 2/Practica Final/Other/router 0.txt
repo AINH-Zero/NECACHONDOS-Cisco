@@ -1,0 +1,35 @@
+
+ena
+configure terminal
+
+! ********Cambiar por la conexion a router 1 ******
+interface Serial0/0/0  ip address 11.11.11.1 255.255.255.252
+ clock rate 128000
+ no shutdown
+exit
+
+! ********Cambiar por la conexion a router 2 ******
+interface Serial0/0/1 ip address 11.11.11.5 255.255.255.252
+ clock rate 128000
+ no shutdown
+exit
+
+
+!********Cambiar por la conexion a router 3 ******
+interface Serial0/1/0  ip address 11.11.11.9 255.255.255.252
+ clock rate 128000
+ no shutdown
+exit
+
+!********Cambiar por la conexion a router 4 ******
+interface Serial0/1/1 
+ip address 11.11.11.13 255.255.255.252
+ clock rate 128000
+ no shutdown
+exit
+
+!********Cambiar por la conexion a router  5******
+interface Serial0/2/0
+ ip address 11.11.11.15 255.255.255.252  clock rate 128000
+ no shutdown
+exit

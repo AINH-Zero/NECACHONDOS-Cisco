@@ -1,0 +1,51 @@
+	enable
+	configure terminal
+	vlan 100
+	name VLAN_NATIVA
+	exit
+	interface range FastEthernet0/1 - 3
+	switchport mode trunk
+	switchport trunk native vlan 100
+	end
+	
+	
+	enable
+	configure terminal
+	
+	!Crear VLAN 20 y asignar puertos
+	vlan 20
+	name DATOS_VLAN20
+	exit
+	interface range FastEthernet0/4 - 10
+	switchport mode access
+	switchport access vlan 20
+	exit
+	
+	! Crear VLAN 25 y asignar puertos
+	vlan 25
+	name DATOS_VLAN25
+	exit
+	interface range FastEthernet0/11 - 23
+	switchport mode access
+	switchport access vlan 25
+	exit
+	
+	! Crear VLAN 105 (Administrativa) y asignar puerto
+	! (La VLAN 105 ya debería existir si se creó en Switch0 y no aparece en la tabla por lo que use otra anterior al de la ip del switch 0)
+	vlan 105
+	name ADMINISTRATIVA
+	exit
+	interface FastEthernet0/24
+	switchport mode access
+	switchport access vlan 105
+	exit
+	
+
+	! Configurar SVI para VLAN 105 en Switch1
+	! Otra penúltima IP utilizable en 10.10.12.32/27
+	interface Vlan105
+	ip address 10.10.12.61 255.255.255.224 
+		no shutdown
+	exit
+	
+	

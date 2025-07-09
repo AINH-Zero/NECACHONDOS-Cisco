@@ -1,0 +1,68 @@
+ena
+configure terminal
+
+!********Cambiar al que esta conectado con el router 0******
+interface Serial0/0/0 
+ ip address 11.11.11.2 255.255.255.252
+ no shutdown
+exit
+end
+!//////////////////////////////Intervlan///////////////////////////////
+ena
+conf t
+!***************Cambiar la gigabithEthernet a el que este conectado al switch 0 de aqui en adelante******************
+interface GigabitEthernet0/0  
+! Asumiendo que es la interfaz que conecta a Switch0
+ no ip address
+ no shutdown
+
+! Configurar la subinterfaz para VLAN 10 (10.10.10.0/24)
+! El rango utilizable para 10.10.10.0/24 es 10.10.10.1 a 10.10.10.254.
+! El gateway (última IP utilizable) será 10.10.10.254.
+interface GigabitEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 10.10.10.254 255.255.255.0
+ no shutdown
+
+! Configurar la subinterfaz para VLAN 15 (10.10.11.0/25)
+! El rango utilizable para 10.10.11.0/25 es 10.10.11.1 a 10.10.11.126.
+! El gateway (última IP utilizable) será 10.10.11.126.
+interface GigabitEthernet0/0.15
+ encapsulation dot1Q 15
+ ip address 10.10.11.126 255.255.255.128
+ no shutdown
+
+! use la familia  10.10.12.0/27 para la 105
+interface GigabitEthernet0/0.105
+ encapsulation dot1Q 105
+ ip address 10.10.12.30
+  no shutdown
+
+! Configurar la subinterfaz para la VLAN nativa 100
+interface GigabitEthernet0/0.100
+ encapsulation dot1Q 100 native
+ no shutdown
+
+end
+
+
+
+!////////////////////DHCP///////////////////
+ena
+conf t
+ip dhcp excluded-address 10.10.11.126
+ip dhcp excluded-address 10.10.10.254
+
+
+! Pool DHCP para VLAN 10 (Red: 10.10.10.0/24)
+ip dhcp pool POOL_VLAN10_DATOS
+ network 10.10.10.0 255.255.255.0
+ default-router 10.10.10.254
+exit
+
+! Pool DHCP para VLAN 15 (Red: 10.10.11.0/25)
+ip dhcp pool POOL_VLAN15_DATOS
+ network 10.10.11.0 255.255.255.128
+ default-router 10.10.11.126
+exit
+
