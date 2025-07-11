@@ -1,0 +1,146 @@
+Configure LLDP as follows:
+Disable CDP on the HQ router.
+HQ(config)#no cdp run
+Enable LLDP globally on HQ.
+HQ(config)#lldp run
+On HQ, configure the links to the switches to only receive LLDP messages.
+HQ(config)#interface GigabitEthernet0/0/0
+HQ(config-if)#no lldp transmit
+HQ(config-if)#lldp receive
+
+HQ(config-if)#interface GigabitEthernet0/0/1
+HQ(config-if)#no lldp transmit
+HQ(config-if)#lldp receive
+Disable CDP on the HQ-SW-1 and HQ-SW-2 switches.
+HQ-SW-1
+HQ-SW-2
+HQ-SW-1(config)#no cdp run
+Enable LLDP on the HQ-SW-1 and HQ-SW-2 switches.
+HQ-SW-1
+HQ-SW-2
+HQ-SW-1(config)#lldp run
+On the HQ-SW-1 and HQ-SW-2 switches, configure the links to the HQ router to only send, not receive, LLDP messages.
+HQ-SW-1
+HQ-SW-2
+HQ-SW-1(config-if)#interface GigabitEthernet0/1
+HQ-SW-1(config-if)#no lldp receive
+Disable LLDP completely on the HQ-SW-1 and HQ-SW-2 access ports that are in use.
+HQ-SW-1
+HQ-SW-2
+HQ-SW-1(config)#interface FastEthernet0/24
+HQ-SW-1(config-if)#no lldp receive
+HQ-SW-1(config-if)#no lldp transmit
+Configure CDP as follows:
+Activate CDP on the Branch router.
+Branch(config)#cdp run
+On the Branch router, issue the command show cdp neighbors detail to identify the IP address of BR-SW-1 and populate this address in the address table.
+
+Branch#show cdp neighbors detail
+
+Device ID: BR-SW-1
+Entry address(es): 
+  IP address : 192.168.4.250
+Platform: cisco 2960, Capabilities: Switch
+Interface: GigabitEthernet0/0/0.10, Port ID (outgoing port): GigabitEthernet0/1
+Holdtime: 170
+Connect to switch BR-SW-1 over SSH. You will not be able to open a CLI window by clicking the Branch switches.
+Branch#ssh -l admin 192.168.4.250
+
+Password: SW1admin#
+
+BR-SW-1>
+On the BR-SW-1, issue the command show cdp neighbors detail to identify the IP address of BR-SW-2/BR-SW-3 and populate this address in the address table.
+
+BR-SW-1>enable
+Password: SW1EnaAccess#
+
+BR-SW-1#show cdp neighbors detail
+
+Device ID: BR-SW-2
+Entry address(es): 
+  IP address : 192.168.4.253
+Platform: cisco 2960, Capabilities: Switch
+Interface: GigabitEthernet0/2, Port ID (outgoing port): GigabitEthernet0/2
+Holdtime: 124
+---------------------------
+
+Device ID: BR-SW-3
+Entry address(es): 
+  IP address : 192.168.4.254
+Platform: cisco 2960, Capabilities: Switch
+Interface: FastEthernet0/24, Port ID (outgoing port): GigabitEthernet0/1
+Holdtime: 124
+Connect to switches BR-SW2 and BR-SW3 over SSH. Configure the access ports that are in use to not send CDP messages out of the ports.
+BR-SW-1#ssh -l admin 192.168.4.253
+Password: 
+BR-SW-2>enable
+Password: 
+BR-SW-2#configure terminal
+BR-SW-2(config)#interface fa0/1
+BR-SW-2(config-if)#no cdp enable
+BR-SW-2(config-if)#end
+
+BR-SW-2#ssh -l admin 192.168.4.254
+Password: 
+BR-SW-3>enable
+Password: 
+BR-SW-3#configure terminal
+BR-SW-3(config)#interface fa0/1
+BR-SW-3(config-if)#no cdp enable
+BR-SW-3(config-if)#end
+Configure NTP:
+Configure HQ to use the device at 192.168.1.254 as an NTP server.
+HQ(config)#ntp server 192.168.1.254
+Answer Scripts
+Router HQ
+enable
+conf t
+lldp run
+interface GigabitEthernet0/0/0
+ no lldp transmit
+ lldp receive
+interface GigabitEthernet0/0/1
+ no lldp transmit
+ lldp receive
+no cdp run
+ntp server 192.168.1.254
+end
+Router Branch
+enable
+conf t
+cdp run
+end
+Switch HQ-SW-1
+enable
+conf t
+lldp run
+no cdp run
+interface FastEthernet0/24
+ no lldp receive
+ no lldp transmit
+interface GigabitEthernet0/1
+ no lldp receive
+end
+Switch HQ-SW2
+enable
+conf t
+lldp run
+no cdp run
+interface FastEthernet0/1
+ no lldp receive
+ no lldp transmit
+interface GigabitEthernet0/1
+ no lldp receive
+end
+Switch BR-SW-2
+enable
+conf t
+int fa0/1
+ no cdp enable
+end
+Switch BR-SW-3
+ena
+conf t
+int fa0/1
+ no cdp enable
+end
