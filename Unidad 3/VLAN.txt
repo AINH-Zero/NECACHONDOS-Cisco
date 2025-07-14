@@ -56,7 +56,6 @@ service password-encryption
 router ospf 1
 network 10.10.10.0 0.0.0.255 area 0
 network 172.15.1.0 0.0.0.3 area 0
-passive-interface FastEthernet0/0
 end
 
 ---------R2
@@ -87,5 +86,4 @@ service password-encryption
 router ospf 1
 network 10.10.11.0 0.0.0.255 area 0
 network 172.15.1.4 0.0.0.3 area 0
-passive-interface FastEthernet0/0
 end
