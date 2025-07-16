@@ -1,11 +1,11 @@
 --------ISP
 ena
 conf t
-interface serial 0/3/0
+interface serial 0/1/0
 ip address 172.15.1.1 255.255.255.252
 no shutdown 
 exit
-interface serial 0/3/1
+interface serial 0/1/1
 ip address 172.15.1.5 255.255.255.252
 no shutdown 
 exit
@@ -31,11 +31,11 @@ end
 --------R1
 ena
 conf t
-interface serial 0/3/0
+interface serial 0/1/0
 ip address 172.15.1.2 255.255.255.252
 no shutdown 
 exit
-interface fa0/0
+interface gigabitethernet0/0
 ip address 10.10.10.254 255.255.255.0
 no shutdown 
 exit
@@ -61,11 +61,11 @@ end
 ---------R2
 ena
 conf t
-interface serial 0/3/0
+interface serial 0/1/0
 ip address 172.15.1.6 255.255.255.252
 no shutdown 
 exit
-interface fa0/0
+interface gigabitethernet0/0
 ip address 10.10.11.254 255.255.255.0
 no shutdown 
 exit
