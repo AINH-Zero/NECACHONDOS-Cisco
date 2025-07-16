@@ -58,6 +58,23 @@ network 10.10.10.0 0.0.0.255 area 0
 network 172.15.1.0 0.0.0.3 area 0
 end
 
+////VPN
+crypto isakmp policy 10
+encryption aes 256 
+authentication pre-share 
+group 5 
+crypto isakmp key secretkey address 172.15.1.6
+crypto ipsec transform-set VPN-SET esp-aes 256 esp-sha-hmac
+crypto map IPSEC-MAP 10 ipsec-isakmp
+ set peer 172.15.1.6
+ set pfs group5
+ set transform-set VPN-SET
+ match address 100
+access-list 100 permit ip 10.10.10.0 0.0.0.255 10.10.11.0 0.0.0.255
+interface Serial0/1/0
+ crypto map IPSEC-MAP
+ exit
+
 ---------R2
 ena
 conf t
@@ -87,6 +104,24 @@ router ospf 1
 network 10.10.11.0 0.0.0.255 area 0
 network 172.15.1.4 0.0.0.3 area 0
 end
+
+////VPN
+crypto isakmp policy 10
+ encryption aes 256
+ authentication pre-share
+ group 5
+ exit
+crypto isakmp key cisco address 172.15.1.2
+crypto ipsec transform-set VPN-SET esp-aes 256 esp-sha-hmac
+crypto map IPSEC-MAP 10 ipsec-isakmp
+ set peer 172.15.1.2
+ set pfs group5
+ set transform-set VPN-SET
+ match address 100
+access-list 100 permit ip 10.10.11.0 0.0.0.255 10.10.10.0 0.0.0.255
+interface Serial0/1/0
+ crypto map IPSEC-MAP
+ exit
 
 ++++++Activar Licencia
 license boot module c1900 technology-package securityk9
