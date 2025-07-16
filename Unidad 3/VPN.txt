@@ -74,6 +74,8 @@ access-list 100 permit ip 10.10.10.0 0.0.0.255 10.10.11.0 0.0.0.255
 interface Serial0/1/0
  crypto map IPSEC-MAP
  exit
+do show crypto isakmp sa 
+do show crypto ipsec sa
 
 ---------R2
 ena
@@ -122,6 +124,8 @@ access-list 100 permit ip 10.10.11.0 0.0.0.255 10.10.10.0 0.0.0.255
 interface Serial0/1/0
  crypto map IPSEC-MAP
  exit
+do show crypto isakmp sa 
+do show crypto ipsec sa
 
 ++++++Activar Licencia
 license boot module c1900 technology-package securityk9
