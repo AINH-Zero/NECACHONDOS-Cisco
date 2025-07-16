@@ -87,3 +87,8 @@ router ospf 1
 network 10.10.11.0 0.0.0.255 area 0
 network 172.15.1.4 0.0.0.3 area 0
 end
+
+++++++Activar Licencia
+license boot module c1900 technology-package securityk9
+do write
+do reload
