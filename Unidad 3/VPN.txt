@@ -63,7 +63,7 @@ crypto isakmp policy 10
 encryption aes 256 
 authentication pre-share 
 group 5 
-crypto isakmp key secretkey address 172.15.1.6
+crypto isakmp key cisco address 172.15.1.6
 crypto ipsec transform-set VPN-SET esp-aes 256 esp-sha-hmac
 crypto map IPSEC-MAP 10 ipsec-isakmp
  set peer 172.15.1.6
