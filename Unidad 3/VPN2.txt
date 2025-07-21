@@ -1,0 +1,96 @@
+--------ISP
+ena
+conf t
+interface serial 0/1/0
+ip address 5.5.5.5 255.255.255.252
+no shutdown 
+exit
+interface serial 0/1/1
+ip address 5.5.5.1 255.255.255.252
+no shutdown 
+exit
+
+hostname ISP
+enable secret class
+banner motd # Acceso no autorizado prohibido #
+line console 0
+password cisco
+login
+exit
+line vty 0 4
+password cisco
+login
+exit
+service password-encryption
+
+router ospf 1
+network 5.5.5.0 0.0.0.3 area 0
+network 5.5.5.4 0.0.0.3 area 0
+end
+
+--------R1
+ena
+conf t
+interface serial 0/1/0
+ip address 5.5.5.6 255.255.255.252
+no shutdown 
+exit
+interface gigabitethernet0/0
+ip address 192.168.1.254 255.255.255.0
+no shutdown 
+exit
+
+hostname R1
+enable secret class
+banner motd # Acceso no autorizado prohibido #
+line console 0
+password cisco
+login
+exit
+line vty 0 4
+password cisco
+login
+exit
+service password-encryption
+
+router ospf 1
+network 192.168.1.0 0.0.0.255 area 0
+network 5.5.5.4 0.0.0.3 area 0
+end
+
+
+---------R2
+ena
+conf t
+interface serial 0/1/0
+ip address 5.5.5.2 255.255.255.252
+no shutdown 
+exit
+interface gigabitethernet0/0
+ip address 192.168.3.254 255.255.255.0
+no shutdown 
+exit
+
+hostname R2
+enable secret class
+banner motd # Acceso no autorizado prohibido #
+line console 0
+password cisco
+login
+exit
+line vty 0 4
+password cisco
+login
+exit
+service password-encryption
+
+router ospf 1
+network 5.5.5.0 0.0.0.3 area 0
+network 192.168.3.0 0.0.0.255 area 0
+end
+
+
+++++++Activar Licencia
+license boot module c1900 technology-package securityk9
+do write
+do reload
