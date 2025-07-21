@@ -89,6 +89,42 @@ network 5.5.5.0 0.0.0.3 area 0
 network 192.168.3.0 0.0.0.255 area 0
 end
 
+////////VPN
+ip local pool VPNpool 192.168.3.10 192.168.3.14
+aaa new-model
+aaa authentication login VPNuser local
+aaa authorization network VPNgroup local
+username grecia secret cisco
+crypto isakmp policy 10
+ hash sha
+ authentication pre-share
+ group 5
+exit
+crypto isakmp client configuration group VPNuser
+ key cisco
+ pool VPNpool
+exit
+crypto ipsec transform-set VPNset esp-aes esp-sha-hmac
+crypto dynamic-map dynamicmap 5
+ set transform-set VPNset
+ reverse-route
+exit
+crypto map VPNstatic client configuration address respond
+crypto map VPNstatic client authentication list VPNuser
+crypto map VPNstatic isakmp authorization list VPNgroup
+crypto map VPNstatic 30 ipsec-isakmp dynamic dynamicmap
+interface Serial0/1/0
+ crypto map VPNstatic
+exit
+end
+
+
+&&&&&&&&&VPN
+GroupName: VPNuser 
+Group Key: cisco 
+Host IP (Server IP): 5.5.5.2 (Esta es la IP pública del Router R2).
+Username: grecia 
+Password: cisco
 
 ++++++Activar Licencia
 license boot module c1900 technology-package securityk9
