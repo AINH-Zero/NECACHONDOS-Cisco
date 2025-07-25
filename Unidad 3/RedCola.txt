@@ -1,4 +1,4 @@
------------R2
+-----------Router 2
 //////////VPN
 ip local pool VPNpool 192.168.1.10 192.168.1.14
 aaa new-model
@@ -53,3 +53,42 @@ crypto map VPNstatic 30 ipsec-isakmp dynamic dynamicmap
 interface Serial0/3/0
  crypto map VPNstatic
 exit
+
+
+---------Router 4
+crypto isakmp policy 10
+encryption aes 256 
+authentication pre-share 
+group 5 
+crypto isakmp key cisco address 11.11.11.14
+crypto ipsec transform-set VPN-SET esp-aes 256 esp-sha-hmac
+crypto map IPSEC-MAP 10 ipsec-isakmp
+ set peer 11.11.11.14
+ set pfs group5
+ set transform-set VPN-SET
+ match address 100
+access-list 100 permit ip 10.10.10.0 0.0.0.63 192.168.10.128 0.0.0.127
+interface Serial0/3/0
+ crypto map IPSEC-MAP
+ exit
+do show crypto isakmp sa 
+do show crypto ipsec sa
+
+----------Router 5
+crypto isakmp policy 10
+encryption aes 256 
+authentication pre-share 
+group 5 
+crypto isakmp key cisco address 11.11.11.10
+crypto ipsec transform-set VPN-SET esp-aes 256 esp-sha-hmac
+crypto map IPSEC-MAP 10 ipsec-isakmp
+ set peer 11.11.11.10
+ set pfs group5
+ set transform-set VPN-SET
+ match address 100
+access-list 100 permit ip 192.168.10.128 0.0.0.127 10.10.10.0 0.0.0.63
+interface Serial0/3/0
+ crypto map IPSEC-MAP
+ exit
+do show crypto isakmp sa 
+do show crypto ipsec sa
