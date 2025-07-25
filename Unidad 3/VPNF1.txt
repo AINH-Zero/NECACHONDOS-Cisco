@@ -1,0 +1,94 @@
+--------R1
+ena
+conf t
+interface serial 0/2/0
+ip address 172.15.1.5 255.255.255.252
+no shutdown 
+exit
+interface gigabitethernet0/0/0
+ip address 10.10.10.254 255.255.255.0
+no shutdown 
+
+hostname R1
+enable secret class
+banner motd # Acceso no autorizado prohibido #
+line console 0
+password cisco
+login
+exit
+line vty 0 4
+password cisco
+login
+service password-encryption
+
+router ospf 1
+network 10.10.10.0 0.0.0.255 area 0
+network 172.15.1.4 0.0.0.3 area 0
+
+crypto isakmp policy 10
+encryption aes 256 
+authentication pre-share 
+group 5 
+crypto isakmp key cisco address 172.15.1.6
+crypto ipsec transform-set VPN-SET esp-aes 256 esp-sha-hmac
+crypto map IPSEC-MAP 10 ipsec-isakmp
+ set peer 172.15.1.6
+ set pfs group5
+ set transform-set VPN-SET
+ match address 100
+access-list 100 permit ip 10.10.10.0 0.0.0.255 10.10.11.0 0.0.0.255
+interface Serial0/2/0
+ crypto map IPSEC-MAP
+ exit
+do show crypto isakmp sa 
+do show crypto ipsec sa
+
+---------R2
+ena
+conf t
+interface serial 0/1/0
+ip address 172.15.1.6 255.255.255.252
+no shutdown 
+interface gigabitethernet0/0/0
+ip address 10.10.11.254 255.255.255.0
+no shutdown 
+
+hostname R2
+enable secret class
+banner motd # Acceso no autorizado prohibido #
+line console 0
+password cisco
+login
+line vty 0 4
+password cisco
+login
+service password-encryption
+
+router ospf 1
+network 10.10.11.0 0.0.0.255 area 0
+network 172.15.1.4 0.0.0.3 area 0
+end
+
+crypto isakmp policy 10
+ encryption aes 256
+ authentication pre-share
+ group 5
+ exit
+crypto isakmp key cisco address 172.15.1.5
+crypto ipsec transform-set VPN-SET esp-aes 256 esp-sha-hmac
+crypto map IPSEC-MAP 10 ipsec-isakmp
+ set peer 172.15.1.5
+ set pfs group5
+ set transform-set VPN-SET
+ match address 100
+access-list 100 permit ip 10.10.11.0 0.0.0.255 10.10.10.0 0.0.0.255
+interface Serial0/1/0
+ crypto map IPSEC-MAP
+ exit
+do show crypto isakmp sa 
+do show crypto ipsec sa
+
+++++++Activar Licencia
+license boot module c1900 technology-package securityk9
+do write
+do reload
